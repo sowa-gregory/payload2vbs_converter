@@ -1,4 +1,5 @@
 import base64
+import sys
 
 code = '\n\
 Dim fileNum As Integer                                                         \n\
@@ -73,7 +74,7 @@ Function base64_decode(data As String) As Byte()                               \
                                                                                \n\
 End Function                                                                   \n\
                                                                                \n\
-Sub sl(line As String)                                                          \n\
+Sub sl(line As String)                                                         \n\
 Dim data() As Byte                                                             \n\
 data = base64_decode(line)                                                     \n\
 Put #fileNum,,data                                                             \n\
@@ -124,11 +125,16 @@ def convert( file, line_len=42):
             line_counter=0
         f.write("end sub\n")
         
-
         f.write("sub processlines\n")
         for i in range(0,procedure_number):
           f.write("pline"+str(i)+"\n")
         f.write("end sub\n")
         f.write(code2)
 
-convert("redteamchristmas.exe")
+if len(sys.argv) < 2:
+  print("Usage: file2vbs_convert [file]")
+  exit()
+
+convert(sys.argv[1])
+print("output written to:"+sys.argv[1]+".out")
+
