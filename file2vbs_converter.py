@@ -90,7 +90,7 @@ Sub savefile(filename As String)                         \n\
 End Sub                                                  \n\
                                                          \n\
 sub test()                                               \n\
-savefile("d:\data\out.exe")                              \n\
+savefile("c:\data\out.exe")                              \n\
 end sub                                                  \n\
 '
 
