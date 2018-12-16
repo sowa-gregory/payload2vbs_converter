@@ -4,13 +4,13 @@
 
 Tool to embed payload (eg. malicious executable file) inside Microsoft office applications.
 
-Presented tool allows for convertion of any type of the file into vbs script. Input file is encoded in base64 algorithm and represented as string constants. Generated output vbs code is embeddable into one of the MS office applications (Word, Excep, PowerPoint). The code contains functions to decode payload and store it back into file.
+Presented tool allows for convertion of any type of the file into vbs script. Input file is encoded in base64 algorithm and represented as string constants. Generated output vbs code is embeddable into one of the MS office applications (Word, Excep, PowerPoint). Output script contains functions to decode payload and store it back into file.
 
 ## Usage
 
 The tool is written in Python version 2. Only standard build-in libraries are used, no additional modules must be installed. Run the tool by following command line:
 
-```code
+```shell
 python payload2vbs_converter.py [filename]
 ```
 
@@ -25,3 +25,26 @@ Another limitation is related to maximum number of lines in one procedure. The s
 
 ## Output code structure
 
+Generated output code contains three main sections:
+
+- base64 decoder and file storage functions
+
+Internal functions used to decode payload and sequentially store it into file stream.
+
+- section with procedures containing encoded payload
+
+Payload is represented as many (even thousands) of subsequent calls of method **sl**. Due to the procedure length limitation - calls are split into many individual procedures named **Pline0** .. **PlineN**
+
+- function to be called to recreate and store payload
+
+**Savefile** is the name of the function available for programmer, which save payload in provided *filename* path.
+
+``` vbs
+sub savefile( filename as String )
+```
+
+## Version history
+
+- 0.1 [2018-12-15] Initial release
+
+Embedded file encoded in base64 format.

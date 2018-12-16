@@ -82,7 +82,7 @@ End Sub                                                                        \
 '
 
 code2='\
-Sub savefile(filename As String)                         \n\
+Sub saveFile(filename As String)                         \n\
   Dim value As Long                                      \n\
   fileNum = FreeFile()                                   \n\
   Open filename For Binary Access Write As #fileNum      \n\
@@ -132,7 +132,7 @@ def convert( file, line_len=42):
         f.write(code2)
 
 if len(sys.argv) < 2:
-  print("Usage: file2vbs_convert [file]")
+  print("Usage: payload2vbs_converter [file]")
   exit()
 
 convert(sys.argv[1])
