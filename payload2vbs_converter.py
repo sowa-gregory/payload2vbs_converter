@@ -99,8 +99,11 @@ def convert_input(file, line_len):
     with open(file, "rb") as f:
         buffer = f.read(line_len)
         while buffer:    
-            yield base64.b64encode(buffer)
+            yield base64.b64encode(buffer).decode()
             buffer = f.read(line_len)
+
+def write_encoded(file, line):
+    file.write(line.encode())
 
 def convert( file, line_len=42):
     max_lines=500
@@ -108,28 +111,28 @@ def convert( file, line_len=42):
     line_counter=0
     new_sub = True
     with open( file+".out", "wb") as f:
-        f.write(code)
+        write_encoded(f, code )
         
         # lines should be divided into subs (excel has maximum sub length limit)
         for line in convert_input(file, line_len):
           if new_sub:
-            f.write("Sub PLine"+str(procedure_number)+"\n")
+            write_encoded(f, "Sub PLine"+str(procedure_number)+"\n")
             procedure_number=procedure_number+1
             new_sub=False
         
-          f.write('sl ("'+line+'")\n')
+          write_encoded(f, 'sl ("'+line+'")\n')
           line_counter=line_counter+1
           if(line_counter > max_lines):
-            f.write("end sub\n")
+            write_encoded(f, "end sub\n")
             new_sub=True
             line_counter=0
-        f.write("end sub\n")
-        
-        f.write("sub processlines\n")
+        write_encoded(f, "end sub\n")
+       
+        write_encoded(f, "sub processlines\n")
         for i in range(0,procedure_number):
-          f.write("pline"+str(i)+"\n")
-        f.write("end sub\n")
-        f.write(code2)
+          write_encoded(f,"pline"+str(i)+"\n")
+        write_encoded(f, "end sub\n")
+        write_encoded(f, code2)
 
 if len(sys.argv) < 2:
   print("Usage: payload2vbs_converter [file]")

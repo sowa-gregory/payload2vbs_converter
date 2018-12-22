@@ -1,4 +1,4 @@
-# Payload2VBSConverter
+# Payload2VBSConverter v0.2
 
 Tool to embed payload (eg. malicious executable file) inside Microsoft office applications.
 
@@ -14,7 +14,7 @@ This is a not hacking tool and can be used for educational purposes only.
 
 ## Usage
 
-The tool is written in Python version 2. Only standard build-in libraries are used, no additional modules need to be installed. Run the tool by following command line:
+The tool is written in Python and is compatible with both versions 2 and 3. Only standard build-in libraries are used, no additional modules need to be installed. Run the tool by following command line:
 
 ```shell
 python payload2vbs_converter.py [filename]
@@ -53,5 +53,4 @@ sub savefile( filename as String )
 ## Version history
 
 - 0.1 [2018-12-15] Initial release
-
-Embedded file encoded in base64 format.
+- 0.2 [2018-12-22] Added compatibility with Python v3
