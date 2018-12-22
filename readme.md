@@ -4,9 +4,9 @@ Tool to embed payload (eg. malicious executable file) inside Microsoft office ap
 
 ## Description
 
-Presented tool allows for convertion of any type of the file into vbs script. Input file is encoded in base64 algorithm and represented as string constants. Generated output vbs code is embeddable into one of the MS office applications (Word, Excep, PowerPoint). Output script contains functions to decode payload and store it back into file.
+Presented tool allows for convertion of any type of the file into vbs script. Input file is encoded using base64 algorithm and represented as string constants. Generated output vbs code is embeddable into one of the MS office applications (Word, Excel, PowerPoint). Output script contains functions to decode payload and store it back into file.
 
-This software doesn't contain any magical method to deliver payload to the target machine. It is up to the programmer to prepare office document (for instance Excel sheet) containing something valuable for the potential user. Afterwards, this excel can be used as method to deliver additional payload to remote workstation, as for example email attachment. VBS macros build into Excel file could then invoke generated script to store transported payload into filesystem of targeted victim.
+This software doesn't contain any magical method to deliver payload to the target machine. It is up to the programmer to prepare office document (for instance Excel sheet) containing something valuable. The document might then be send (by email) to choosen victim. Upon delivery, after opening, generated scripts can be invoked to store additional payload in filesystem of targeted workstation.
 
 ## Disclaimer
 
@@ -14,7 +14,7 @@ This is a not hacking tool and can be used for educational purposes only.
 
 ## Usage
 
-The tool is written in Python version 2. Only standard build-in libraries are used, no additional modules must be installed. Run the tool by following command line:
+The tool is written in Python version 2. Only standard build-in libraries are used, no additional modules need to be installed. Run the tool by following command line:
 
 ```shell
 python payload2vbs_converter.py [filename]
@@ -26,7 +26,7 @@ python payload2vbs_converter.py [filename]
 
 ## VBS limitations
 
-Excel VBS limits size of individual string used as function parameters. If large amount of strings are presented inside the script, it Excel prevents from saving worksheet content. Therefore generated script uses relatively short string constants.
+Excel VBS limits size of individual string used as function parameters. If large amount of strings are presented inside the script, Excel prevents from saving worksheet content. This is the reason, why generated script uses relatively short string constants.
 
 Another limitation is related to maximum number of lines in one procedure. The size of individual code blocks must be controlled. The tool automatically splits generated code into many separated procedures.
 
